@@ -1,0 +1,32 @@
+/** @format */
+
+@charset "ISO-8859-1";
+.navbarBottom {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.navbarBottom a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbarBottom a:hover {
+  background: #f1f1f1;
+  color: black;
+}
+
+.navbarBottom a.active {
+  background-color: #04aa6d;
+  color: white;
+}

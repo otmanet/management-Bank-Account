@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Gestion Account</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="d-flex justify-content-center">
+			<div class="row w-100">
+				<div class="col-sm">
+					<div class="col mt-3">
+						<div class="w-100 border-bottom bg-dark ">
+							<p class="text-success h6 p-3">Consultation d'un compte</p>
+						</div>
+						<form th:action="@{/SearchCompte}"
+							class="form-inline border d-flex justify-content-center p-3">
+							<label class="label ">Code Cpte : &nbsp</label> <input
+								type="search" class="form-control w-50 " name="code"
+								th:value="${code}">
+							<Button class="btn btn-outline-success" type="Submit"
+								value="recherhe">Search</Button>
+
+						</form>
+						<div class="text-danger" th:if="${message}" th:text="${message}"></div>
+					</div>
+					<div class="w-100"></div>
+					<div class="col mt-3 border" th:if="${compte}">
+						<div class="w-100 border-bottom bg-dark ">
+							<p class="text-success h6 p-3">Informations sur le compte</p>
+						</div>
+
+						<label class="label h5 "
+							style="margin-left: 12px; margin-top: 12px">Client :</label> <label
+							class="lable h6" th:text="${compte.client.nom}"></label></br> </br> <label
+							class="label h5" style="margin-left: 12px">Code Cpte :</label> <label
+							class="lable h6" th:text="${compte.code}"></label></br> </br> <label
+							class="label h5" style="margin-left: 12px">Solde :</label> <label
+							class="lable h6" th:text="${compte.sold}"></label></br> </br> <label
+							class="label h5" style="margin-left: 12px">Date creation
+							:</label> <label class="lable h6" th:text="${compte.dateCreation}"></label></br>
+						</br> <label class="label h5" style="margin-left: 12px">Type :</label>
+						<label class="lable h6" th:text="${compte.class.simpleName}"></label>
+						<div th:if="${compte.class.simpleName=='CompteCourant'}"
+							class="mt-3">
+							<label class="label h5" style="margin-left: 12px">Decouvert
+								:</label> <label class="lable h6" th:text="${compte.decouvert}"></label>
+						</div>
+						</br> </br>
+						<div th:if="${compte.class.simpleName=='CompteEpargne'}">
+							<label class="label h5" style="margin-left: 12px">Taux :</label>
+							<label class="lable h6" th:text="${compte.taux}"></label>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm">
+					<div class="col mt-3 border" th:if="${compte}">
+						<div class="w-100 border-bottom bg-dark ">
+							<p class="text-success h6 p-3">Operations sur le compte</p>
+						</div>
+
+						<label class="label h5"
+							style="margin-left: 12px; margin-bottom: 35px">Compte :</label> <label
+							class="lable h6" th:text="${compte.class.simpleName}"></label>
+						<form th:action="@{'/saveOperations/'+${compte.code}}"
+							method="post">
+							<input type="radio" id="html" name="typeOperation" th:value="V"
+								checked="checked"> 
+								<label for="html">Versement</label> 
+								<input type="radio" id="html" name="typeOperation" th:value="R">
+							<label for="html" >Retrait</label> 
+							<input type="radio" id="html"name="typeOperation" th:value="sendAnotherAccount">
+							 <label for="html">Vraiment</label>
+
+							<div class="group-form" id="classVraiment">
+								<label for="html">Vers :</label> <input
+									class="form-control w-50" name="versCompte" />
+							</div>
+								<input type="hidden" name="deleted" th:value="false">
+							<div class="group-form">
+								<label for="html">Montant :</label> <input
+									class="form-control w-50" name="montant" />
+							</div>
+							<div class="text-danger" th:if="${soldsala}"
+								th:text="${soldsala}"></div>
+							<Button class="btn btn-outline-success mt-3" type="Submit">Save</Button>
+
+						</form>
+
+					</div>
+					<div class="w-100"></div>
+					<div class="col mt-3 border" th:if="${compte}">
+						<div class="w-100 border-bottom bg-dark ">
+							<p class="text-success h6 p-3">Liste des operations</p>
+						</div>
+						<table class="table" style="display:block; overflow-x: auto; height: 200px">
+							<thead>
+								<tr>
+									<th scope="col" >Num</th>
+									<th scop="col">Operations</th>
+									<th scope="col">Date</th>
+									<th scope="col">Montant</th>
+								</tr>
+							</thead>
+							<tbody  >
+								
+								<tr th:each="operation:${compte.operations}" >
+									<th th:text="${operation.numero}">2</th>
+									<td th:text="${operation.class.simpleName}"></td>
+									<td th:text="${operation.dateOperation}"></td>
+									<td th:text="${operation.montant}"></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

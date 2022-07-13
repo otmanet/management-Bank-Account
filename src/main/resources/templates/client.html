@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Client</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="card d-flex p-2 mt-3">
+				<div class=" border-bottom  bg-black p-3">
+					<h5 class="card-title text-success">List Clients</h5>
+					<form class="form-inline" th:action="@{/client/index}" method="get"
+						style="display: flex; float: right">
+						<input type="search" class="form-control" name="mc"
+							placeholder="Mot Cle..." aria-label="Search" th:value="${mc}">
+						<Button class="btn btn-outline-success" type="Submit"
+							value="recherhe">Search</Button>
+					</form>
+				</div>
+
+				<div class="card-body">
+					<a class="btn btn-outline-success" th:href="@{/formClient}">Save
+						Client</a>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>NOM</th>
+								<th sec:authorize="hasRole('ADMIN')"></th>
+								<th sec:authorize="hasRole('ADMIN')"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c:${pageClient.content}">
+								<td th:text="${c.id}"></td>
+								<td th:text="${c.nom}"></td>
+								<td sec:authorize="hasRole('ADMIN')"><a
+									onclick="return confirm('are you sure do want deleted this client')"
+									th:href="@{/client/delete(id=${c.id},mc=${mc},page=${pageCourante},size=${size})}"
+									class="btn btn-outline-danger">Delete</a></td>
+								<td sec:authorize="hasRole('ADMIN')"><a
+									th:href="@{/client/edit(id=${c.id})}"
+									class="btn btn-outline-success">Edit</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div aria-label="Page navigation example">
+					<ul class="pagination">
+
+					</ul>
+				</div>
+				<nav aria-label="...">
+					<ul class="pagination pagination-sm" th:each="pa,status:${pages}"
+						style="display: inline-block">
+						<li class="page-item"
+							th:class="${pageCourante}==${status.index}? 'active': ''"><a
+							class="page-link"
+							th:href="@{/client/index/(mc=${mc},page=${status.index},size=${size})}"
+							th:text="${status.index}"></a></li>
+					</ul>
+				</nav>
+				
+			</div>
+		</div>
+
+
+	</div>
+</body>
+</html>

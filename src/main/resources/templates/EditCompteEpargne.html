@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Compte Epargne</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="card  d-flex p-2 mt-3 w-50">
+				<div class="border-bottom p-3 bg-black">
+					<h5 class="card-title text-success">Save Compte Epargne</h5>
+				</div>
+				<form th:action="@{/save/CompteEpargne}" th:object="${ce}"
+					method="post">
+
+					 <input name="code" th:value="*{code}"
+							class="form-control" type="hidden" required />
+					<div class="form-group">
+						<label class="control-label">Sold : </label> <input
+							class="form-control" type="text" name="sold" th:value="*{sold}"
+							 />
+                          <div class="alert alert-warning" th:if="${#fields.hasErrors('sold')}" th:errors="*{sold}"></div>
+					</div>
+					
+					<div class="form-group mt-4">
+						<select class="form-control select-css" name="client"
+							th:value="*{client}" required>
+							<option value="" disabled selected>choose client</option>
+							<optgroup th:each="cl:${Listclient}">
+								<option th:text="${cl.id}+'-'+${cl.nom}" th:value="${cl.id}">
+							</optgroup>
+							</option>
+						</select>
+
+					</div>
+					<div class="form-group mb-3">
+						<label class="label "> Taux :</label> <input type="text"
+							name="taux" class="form-control" th:value="*{taux}"
+							>
+							 <div class="alert alert-warning" th:if="${#fields.hasErrors('taux')}" th:errors="*{taux}"></div>
+					</div>
+					<input type="hidden" name="deleted" th:value="false"> 
+					<input type="hidden" name="type" th:value="CE">
+					<input
+						class="btn btn-outline-success" type="submit" value="Save" />
+
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

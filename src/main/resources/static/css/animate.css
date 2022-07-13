@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+.body-index{
+	font-family: 'Source Sans Pro', Arial, sans-serif;
+	background: rgb(11, 21, 12);
+	text-transform: uppercase;
+	color:green;
+	text-align: center;
+/* 	letter-spacing:3px; */
+/* 	padding:50px; */
+}
+
+.body-index .para .text-animate{
+	font-size:100px;
+	position:relative;
+	font-weight:bold;
+	cursor:pointer;
+	animation-name: example;
+animation-duration: 4s;
+ animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes example {
+  from { font-size: 100px;}
+  to {font-size: 120px;}
+}
