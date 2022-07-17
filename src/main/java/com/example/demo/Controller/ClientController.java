@@ -28,8 +28,8 @@ public class ClientController {
 	public String clientIndex(Model model, @RequestParam(name = "mc", defaultValue = "") String motCle,
 			@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "4") int size) {
-		Page<Client> pageClient=clientRepository.SearchClient("%"+motCle+"%", PageRequest.of(page, size));
-		model.addAttribute("pageClient",pageClient);
+		Page<Client> pageClients=clientRepository.SearchClient("%"+motCle+"%", PageRequest.of(page, size));
+		model.addAttribute("pageClient",pageClients);
 		model.addAttribute("pageCourante",page);
 		model.addAttribute("mc",motCle);
 		int[] pages=new int[pageClient.getTotalPages()];
