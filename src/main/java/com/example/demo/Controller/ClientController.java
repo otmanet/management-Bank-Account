@@ -32,7 +32,7 @@ public class ClientController {
 		model.addAttribute("pageClient",pageClients);
 		model.addAttribute("pageCourante",page);
 		model.addAttribute("mc",motCle);
-		int[] pages=new int[pageClient.getTotalPages()];
+		int[] pages=new int[pageClients.getTotalPages()];
 		for (int i=0;i<pages.length;i++)
 			pages[i]=i;
 		model.addAttribute("pages",pages);
