@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>LOGIN</title>
+<style type="text/css" th:href="@{../css/login.css}"></style>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card my-5">
+
+						<form th:action="@{/login}" method="post"
+							class="card-body cardbody-color p-lg-5">
+
+							<div class="text-center">
+								<img
+									src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+									class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+									width="200px" alt="profile">
+							</div>
+							<div class="text-danger" th:if="${param.error}">Bad
+								Credentials</div>
+							<div th:if="${param.logout}">You have been logged out.</div>
+							<div class="mb-3">
+								<input type="email" class="form-control" name="username"
+									id="Username" aria-describedby="emailHelp"
+									placeholder="User Name">
+							</div>
+							<div class="mb-3">
+								<input type="password" class="form-control" name="password"
+									id="password" placeholder="password">
+							</div>
+							<div class="text-center">
+								<a th:href="@{/registerform}">sign up</a>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary">Login</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

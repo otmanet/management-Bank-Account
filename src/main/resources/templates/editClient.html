@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Client</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="card  d-flex p-2 mt-3 w-50">
+				<div class="border-bottom p-3 bg-black">
+					<h5 class="card-title text-success">Edit Client</h5>
+				</div>
+				<form th:action="@{/save/client}" method="post">
+					<input type="hidden" name="id" th:value="${client.id}">
+					<div class="form-group">
+						<label class="control-label">Nom : </label> <input
+							class="form-control" type="text" name="nom"
+							th:value="${client.nom}" /> <span class="error"
+							th:errors="${client.nom}"></span>
+					</div>
+					<input type="hidden" name="deleted" th:value="false"/>
+					<input class="btn btn-outline-success" type="submit" value="" />
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
