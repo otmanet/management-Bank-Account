@@ -43,9 +43,17 @@ public abstract class Operation {
 	@JoinColumn(name = "CODE_CPTE")
 	private Compte compte;
 	public Operation() {super();}
-	
-	public Operation(Date dateOperation, double montant, Compte compte,boolean deleted) {
+
+	public Operation(Date dateOperation, double montant, boolean deleted, Compte compte) {
+		this.dateOperation = dateOperation;
+		this.montant = montant;
+		this.deleted = deleted;
+		this.compte = compte;
+	}
+
+	public Operation(Long numero, Date dateOperation, double montant, Compte compte, boolean deleted) {
 		super();
+		this.numero=numero;
 		this.dateOperation = dateOperation;
 		this.montant = montant;
 		this.compte = compte;

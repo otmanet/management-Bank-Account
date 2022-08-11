@@ -75,7 +75,7 @@ public class UserController {
 			Compte cp = compteRepository.findById(code).get();
 			if (typeOperation.equals("V")) {
 
-				Versement v = new Versement(new Date(), montant, cp, deleted);
+				Versement v = new Versement(new Date(), montant, deleted,cp );
 				operationRepository.save(v);
 				cp.setSold(cp.getSold() + montant);
 				compteRepository.save(cp);
@@ -86,7 +86,7 @@ public class UserController {
 					facil = ((CompteCourant) cp).getDecouvert();
 				if (cp.getSold() + facil < montant)
 					throw new RuntimeException("sold ghadi isali");
-				Retrait r = new Retrait(new Date(), montant, cp, deleted);
+				Retrait r = new Retrait(new Date(), montant, deleted,cp );
 				operationRepository.save(r);
 				cp.setSold(cp.getSold() - montant);
 				compteRepository.save(cp);
@@ -98,12 +98,12 @@ public class UserController {
 				if (cp.getSold() + facil < montant)
 					throw new RuntimeException("sold sala");
 
-				Retrait r = new Retrait(new Date(), montant, cp, deleted);
+				Retrait r = new Retrait(new Date(), montant, deleted,cp );
 				operationRepository.save(r);
 				cp.setSold(cp.getSold() - montant);
 				compteRepository.save(cp);
 				Compte c2 = compteRepository.findById(versCompte).get();
-				Versement v = new Versement(new Date(), montant, c2, deleted);
+				Versement v = new Versement(new Date(), montant, deleted,cp );
 				if (cp.equals(c2))
 					throw new RuntimeException("Impossible virement sur le meme compte");
 				operationRepository.save(v);

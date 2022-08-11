@@ -61,7 +61,7 @@ public class OperationsController {
 			@RequestParam(name = "size", defaultValue = "4") int size) {
 		try {
 			if (typeOperation.equals("V")) {
-				Versement v = new Versement(new Date(), montant, compte, deleted);
+				Versement v = new Versement(new Date(), montant, deleted,compte);
 				operationRepository.save(v);
 				compte.setSold(compte.getSold() + montant);
 				compteRepository.save(compte);
@@ -72,7 +72,7 @@ public class OperationsController {
 					facil = ((CompteCourant) compte).getDecouvert();
 				if (compte.getSold() + facil < montant)
 					throw new RuntimeException("sold ghadi isali");
-				Retrait r = new Retrait(new Date(), montant, compte, deleted);
+				Retrait r = new Retrait(new Date(), montant, deleted,compte);
 				operationRepository.save(r);
 				compte.setSold(compte.getSold() - montant);
 				compteRepository.save(compte);
@@ -106,5 +106,41 @@ public class OperationsController {
 		}
 		return Operations(model, motCle, page, size);
 	}
+     @GetMapping("Operations/edit")
+	public String EditOperation(Model model,long numero){
+		Operation operation=operationRepository.findById(numero).get();
+		model.addAttribute("operation",operation);
+		return "EditOperation";
+	 }
+	@PostMapping(value = "/UpdateOpration")
+	public String updateOperation(Model model, Long numero,Compte compte, double montant, String typeOperation, boolean deleted,
+								@RequestParam(name = "mc", defaultValue = "") String motCle,
+								@RequestParam(name = "page", defaultValue = "0") int page,
+								@RequestParam(name = "size", defaultValue = "4") int size) {
+		try {
+			if (typeOperation.equals("V")) {
+				Versement v = new Versement(numero,new Date(), montant,compte,deleted);
+				operationRepository.save(v);
+				compte.setSold(compte.getSold() + montant);
+				compteRepository.save(compte);
 
+			} else if (typeOperation.equals("R")) {
+				double facil = 0;
+				if (compte instanceof CompteCourant)
+					facil = ((CompteCourant) compte).getDecouvert();
+				if (compte.getSold() + facil < montant)
+					throw new RuntimeException("sold ghadi isali");
+				Retrait r = new Retrait(numero,new Date(), montant,compte,deleted);
+				operationRepository.save(r);
+				compte.setSold(compte.getSold() - montant);
+				compteRepository.save(compte);
+			}
+			return Operations(model, motCle, page, size);
+		} catch (Exception e) {
+			List<Compte> listCompte = compteRepository.findAll();
+			model.addAttribute("listCompte", listCompte);
+			model.addAttribute("soldsala", e);
+			return "SaveOperation";
+		}
+	}
 }

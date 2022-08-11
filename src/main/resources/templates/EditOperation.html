@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Operation</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="card  d-flex p-2 mt-3 w-50">
+            <div class="border-bottom p-3 bg-black">
+                <h5 class="card-title text-success">Edit Operation</h5>
+            </div>
+            <form th:action="@{/UpdateOpration}" th:object="${operation}" method="post"  >
+                <input type="hidden" name="numero"  th:value="*{numero}">
+                <input type="hidden" name="typeOperation"  th:value="${#strings.substring(operation.class.simpleName,0,1)}">
+                <div class="form-group mt-4">
+                    <input type="text" class="form-control w-50" name="compte" th:value="*{compte.code}">
+                </div>
+                <div class="group-form">
+                    <label>Montant :</label> <input
+                        class="form-control w-50" name="montant" th:value="*{montant}" />
+                </div>
+                <input type="hidden" name="deleted" th:value="false">
+                <div class="text-danger" th:if="${soldsala}" th:text="${soldsala}"></div>
+                <Button class="btn btn-outline-success mt-3" type="Submit">Edit</Button>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

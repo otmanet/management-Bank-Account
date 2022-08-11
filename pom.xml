@@ -114,6 +114,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>SpringAppBank</finalName>
 	</build>
 
 </project>

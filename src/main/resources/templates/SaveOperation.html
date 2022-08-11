@@ -12,13 +12,14 @@
 		<div class="container">
 			<div class="card  d-flex p-2 mt-3 w-50">
 				<div class="border-bottom p-3 bg-black">
-					<h5 class="card-title text-success">Save Compte Courant</h5>
+					<h5 class="card-title text-success">Save Operation</h5>
 				</div>
 				<form th:action="@{/saveOp}" method="post">
-					<input type="radio" id="html" name="typeOperation" th:value="V"
-						checked="checked"> <label for="html">Versement</label> <input
-						type="radio" id="html" name="typeOperation" th:value="R">
-					<label for="html">Retrait</label>
+
+					<input type="radio"  name="typeOperation" th:value="V"
+						checked="checked"> <label>Versement</label> <input
+						type="radio"  name="typeOperation" th:value="R">
+					<label >Retrait</label>
 					<div class="form-group mt-4">
 						<select class="form-control select-css" name="compte"
 							th:value="*{compte}" required>
@@ -30,7 +31,7 @@
 						</select>
 					</div>
 					<div class="group-form">
-						<label for="html">Montant :</label> <input
+						<label>Montant :</label> <input
 							class="form-control w-50" name="montant" />
 					</div>
 					<input type="hidden" name="deleted" th:value="false">

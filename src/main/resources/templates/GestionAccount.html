@@ -67,6 +67,7 @@
 							class="lable h6" th:text="${compte.class.simpleName}"></label>
 						<form th:action="@{'/saveOperations/'+${compte.code}}"
 							method="post">
+
 							<input type="radio" id="html" name="typeOperation" th:value="V"
 								checked="checked"> 
 								<label for="html">Versement</label> 
